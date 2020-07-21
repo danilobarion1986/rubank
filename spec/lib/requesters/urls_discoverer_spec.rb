@@ -1,13 +1,22 @@
 # frozen_string_literal: true
 
 RSpec.describe Rubank::Requesters::UrlsDiscoverer do
-  subject { described_class }
+  subject { described_class.new }
 
   describe ".call" do
+    subject { described_class }
+
+    it "sends #call to an instance of #{described_class}" do
+      expect_any_instance_of(described_class).to receive(:call)
+
+      subject.call
+    end
+  end
+
+  describe "#call" do
     let(:random_url) do
       "https://prod-s0-webapp-proxy.nubank.com.br/api/proxy/random_url"
     end
-
     let(:expected_response) do
       {
         register_prospect_savings_web: random_url,

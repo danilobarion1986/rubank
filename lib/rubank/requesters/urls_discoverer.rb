@@ -5,14 +5,13 @@ require "oj"
 # :no-doc:
 module Rubank
   module Requesters
-    # Get URLs from Nubank's discovery endpoint
+    # Get URLs from Nubank's discovery endpoint.
     class UrlsDiscoverer < Base
       # Get all available URLs.
       #
-      # @return [Hash<Symbol, String>] available URLs
+      # @return [Hash<Symbol, String>] available URLs.
       def call
         super
-        raise Requesters::Error, "Request failed", request: request if response_code >= 400
 
         Oj.load(response_body, symbol_keys: true)
       end

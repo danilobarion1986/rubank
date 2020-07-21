@@ -3,7 +3,7 @@
 RSpec.describe Rubank::Requesters::Base do
   subject { described_class.new }
 
-  describe ".call" do
+  describe "#call" do
     let(:base_headers) do
       { "Content-Type" => "application/json",
         "X-Correlation-Id" => "WEB-APP.pewW9",
