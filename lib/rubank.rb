@@ -2,5 +2,11 @@ require "rubank/version"
 
 module Rubank
   class Error < StandardError; end
-  # Your code goes here...
+
+  def self.version
+    Rubank::VERSION
+  end
+
+  class Client
+  end
 end
