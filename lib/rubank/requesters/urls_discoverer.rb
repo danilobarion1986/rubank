@@ -1,5 +1,8 @@
-require 'oj'
+# frozen_string_literal: true
 
+require "oj"
+
+# :no-doc:
 module Rubank
   module Requesters
     # Get URLs from Nubank's discovery endpoint
@@ -24,7 +27,7 @@ module Rubank
       end
 
       def url
-        'https://prod-s0-webapp-proxy.nubank.com.br/api/discovery'
+        "https://prod-s0-webapp-proxy.nubank.com.br/api/discovery"
       end
     end
   end

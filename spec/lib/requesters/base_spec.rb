@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 RSpec.describe Rubank::Requesters::Base do
   subject { described_class.new }
 
   describe ".call" do
     let(:base_headers) do
-      { 'Content-Type' => 'application/json',
-        'X-Correlation-Id' => 'WEB-APP.pewW9',
-        'User-Agent' => 'Rubank - https://github.com/danilobarion1986/rubank',
-        'Origin' => 'https://conta.nubank.com.br',
-        'Referer' => 'https://conta.nubank.com.br/' }
+      { "Content-Type" => "application/json",
+        "X-Correlation-Id" => "WEB-APP.pewW9",
+        "User-Agent" => "Rubank - https://github.com/danilobarion1986/rubank",
+        "Origin" => "https://conta.nubank.com.br",
+        "Referer" => "https://conta.nubank.com.br/" }
     end
 
     it "works" do

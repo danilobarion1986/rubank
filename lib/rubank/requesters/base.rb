@@ -1,10 +1,14 @@
-require 'typhoeus'
-require 'forwardable'
+# frozen_string_literal: true
 
+require "typhoeus"
+require "forwardable"
+
+# :no-doc:
 module Rubank
   module Requesters
     class Error < StandardError; end
 
+    # Basic request capabilities
     class Base
       extend Forwardable
       attr_reader :request
@@ -12,11 +16,11 @@ module Rubank
       def_delegators :@request, :response_body, :response_code
 
       BASE_HEADERS = {
-        'Content-Type' => 'application/json',
-        'X-Correlation-Id' => 'WEB-APP.pewW9',
-        'User-Agent' => 'Rubank - https://github.com/danilobarion1986/rubank',
-        'Origin' => 'https://conta.nubank.com.br',
-        'Referer' => 'https://conta.nubank.com.br/'
+        "Content-Type" => "application/json",
+        "X-Correlation-Id" => "WEB-APP.pewW9",
+        "User-Agent" => "Rubank - https://github.com/danilobarion1986/rubank",
+        "Origin" => "https://conta.nubank.com.br",
+        "Referer" => "https://conta.nubank.com.br/"
       }.freeze
 
       def call
