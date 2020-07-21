@@ -12,3 +12,5 @@
 
 .rbenv-gemsets
 .ruby-version
+
+*.gem
