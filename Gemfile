@@ -8,3 +8,5 @@ gem "rspec", "~> 3.0"
 gem "webmock", "~> 3.8"
 gem "pry"
 gem "simplecov", require: false
+gem 'rubocop', require: false
+gem 'rubycritic'
