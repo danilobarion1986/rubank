@@ -7,6 +7,7 @@ require "pry"
 require "rubank"
 require "rubank/client"
 require "rubank/requesters/base"
+require "rubank/requesters/urls_discoverer"
 
 WebMock.disable_net_connect!(allow_localhost: true, allow: "www.example.com")
 
