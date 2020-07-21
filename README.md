@@ -1,8 +1,10 @@
 # Rubank
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rubank`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Gem Version](https://badge.fury.io/rb/rubank.svg)](https://badge.fury.io/rb/rubank)
 
-TODO: Delete this and the text above, and describe your gem
+An unofficial client for Nubank API.
+
+You can get your Nubank account info, bills, and other information available throught its public API.
 
 ## Installation
 
@@ -22,7 +24,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+First, you need to instantiate the client:
+
+```ruby
+client = Rubank::Client.new
+```
+
+Then, you need to authenticate with your credentials. You can do it by two ways:
+
+1) Directly passing your credentials:
+
+```ruby
+client.authenticate(username: "your_username", password: "your_secret_password")
+```
+
+2) Using environment variables:
+
+```ruby
+client.authenticate
+```
+
+The client will then look for the NUBANK_USERNAME and NUBANK_PASSWORD environment variables.
+
+Either way, you'll receive a `Rubank::Client::AuthenticationError` error if the credentials are wrong or missing.
 
 ## Development
 
@@ -32,8 +56,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rubank.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/danilobarion1986/rubank/issues.
 
 ## License
 
