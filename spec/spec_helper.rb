@@ -1,5 +1,14 @@
+require 'simplecov'
+SimpleCov.start
+
 require "bundler/setup"
+require "webmock/rspec"
+require "pry"
 require "rubank"
+require "rubank/client"
+require "rubank/requesters/base"
+
+WebMock.disable_net_connect!(allow_localhost: true, allow: "www.example.com")
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
