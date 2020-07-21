@@ -28,12 +28,21 @@ RSpec.describe Rubank::Requesters::CredentialsAuthenticator do
         'client_secret' => "yQPeLzoHuJzlMMSAjC-LgNUJdUecx8XO" }.to_json
     end
     let(:expected_response) do
-      { status: "ok" }
+      { access_token: "eyJhbGciOiJSUzI1NiIsI",
+        token_type: "bearer",
+        _links: {
+          revoke_token: { href: random_url },
+          revoke_all: { href: random_url },
+          account_emergency: { href: random_url },
+          bill_emergency: { href: random_url }
+        },
+        refresh_token: "string token",
+        refresh_before: "2020-07-21T22:45:57Z" }
     end
 
     before do
       stub_request(:post, random_url)
-        .to_return(status: 201, body: expected_response.to_json)
+        .to_return(status: 200, body: expected_response.to_json)
     end
 
     it "has the correct body parameters" do
@@ -52,12 +61,12 @@ RSpec.describe Rubank::Requesters::CredentialsAuthenticator do
 
     context "when a incorrect username/password pair is passed" do
       let(:expected_response) do
-        { status: "not_ok" }
+        { error: "Unauthorized" }
       end
 
       before do
         stub_request(:post, random_url)
-          .to_return(status: 422, body: expected_response.to_json)
+          .to_return(status: 401, body: expected_response.to_json)
       end
 
       it "works" do

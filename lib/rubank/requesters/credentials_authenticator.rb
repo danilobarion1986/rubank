@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "oj"
+require "json"
 
 # :no-doc:
 module Rubank
