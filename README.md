@@ -44,7 +44,7 @@ client.authenticate(username: "your_username", password: "your_secret_password")
 client.authenticate
 ```
 
-The client will then look for the NUBANK_USERNAME and NUBANK_PASSWORD environment variables.
+The client will then look for the `NUBANK_USERNAME` and `NUBANK_PASSWORD` environment variables.
 
 Either way, you'll receive a `Rubank::Client::AuthenticationError` error if the credentials are wrong or missing.
 
