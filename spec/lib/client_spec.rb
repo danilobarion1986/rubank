@@ -5,6 +5,7 @@ RSpec.describe Rubank::Client do
 
   before do
     allow(Rubank::Requesters::UrlsDiscoverer).to receive(:call).and_return({ login: 'url'})
+    allow(Rubank::Requesters::AppUrlsDiscoverer).to receive(:call).and_return({ app: 'url'})
   end
 
   describe "#authenticate" do

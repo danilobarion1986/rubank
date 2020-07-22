@@ -6,10 +6,11 @@ module Rubank
   class Client
     class AuthenticationError < StandardError; end
 
-    attr_reader :urls
+    attr_reader :urls, :app_urls
 
     def initialize
       @urls = Requesters::UrlsDiscoverer.call
+      @app_urls = Requesters::AppUrlsDiscoverer.call
     end
 
     def authenticate(username: nil, password: nil)
@@ -18,8 +19,11 @@ module Rubank
 
       raise AuthenticationError, "Credentials are missing!" unless username && password
 
-      response = Requesters::CredentialsAuthenticator.call(urls, username, password)
+      response = Requesters::CredentialsAuthenticator.call(urls[:login], username, password)
       raise AuthenticationError, "Credentials are missing!" if response[:error]
+
+      # Create and validate UUID first, then call the QrCodeAuthenticator as a callback
+      # qrcode_response = Requesters::QrCodeAuthenticator.call(app_urls[:lift], response[:access_token], uuid)
     end
   end
 end

@@ -17,8 +17,8 @@ module Rubank
       # Do the request to the login endpoint.
       #
       # @return [Hash<Symbol, String>] login information.
-      def call(urls, username, password)
-        @login_url = urls[:login]
+      def call(login_url, username, password)
+        @login_url = login_url
         @username = username
         @password = password
 

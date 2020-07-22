@@ -17,9 +17,6 @@ RSpec.describe Rubank::Requesters::CredentialsAuthenticator do
     let(:random_url) do
       "https://prod-s0-webapp-proxy.nubank.com.br/api/proxy/random_url"
     end
-    let(:urls) do
-      { login: random_url }
-    end
     let(:expected_request_body) do
       { 'grant_type' => 'password',
         'login' => 'username',
@@ -46,14 +43,14 @@ RSpec.describe Rubank::Requesters::CredentialsAuthenticator do
     end
 
     it "has the correct body parameters" do
-      subject.call(urls, 'username', 'password')
+      subject.call(random_url, 'username', 'password')
 
       expect(subject.request.request.options[:body]).to eql(expected_request_body)
     end
 
     context "when a correct username/password pair is passed" do
       it "works" do
-        response = subject.call(urls, 'correct_username', 'correct_password')
+        response = subject.call(random_url, 'correct_username', 'correct_password')
 
         expect(response).to eql(expected_response)
       end
@@ -70,7 +67,7 @@ RSpec.describe Rubank::Requesters::CredentialsAuthenticator do
       end
 
       it "works" do
-        response = subject.call(urls, 'correct_username', 'correct_password')
+        response = subject.call(random_url, 'correct_username', 'correct_password')
 
         expect(response).to eql(expected_response)
       end
