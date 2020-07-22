@@ -12,3 +12,4 @@ gem "rubocop", require: false
 gem "rubycritic"
 gem "simplecov", require: false
 gem "webmock", "~> 3.8"
+gem "uuid"

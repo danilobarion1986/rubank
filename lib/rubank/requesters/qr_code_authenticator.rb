@@ -8,24 +8,24 @@ module Rubank
   module Requesters
     # Authenticate using QR Code as MFA.
     class QrCodeAuthenticator < Base
-      attr_reader :lift_url, :access_token, :uuid
+      attr_reader :lift_url, :access_token
 
       LOGIN_TYPE = 'login-webapp'
 
-      # Do the request to the login endpoint.
-      #
-      # @return [Hash<Symbol, String>] login information.
-      def call(lift_url, access_token, uuid)
+      # Do the request to the lift app endpoint.
+      def call(lift_url, access_token)
         @lift_url = lift_url
         @access_token = access_token
+
+        QrCodeRenderer.call(QrCode.new.qrcode.as_html)
 
         super()
         Oj.load(response_body, symbol_keys: true)
       end
 
       # @see #call
-      def self.call(urls, username, password)
-        new.call(urls, username, password)
+      def self.call(lift_url, access_token)
+        new.call(lift_url, access_token)
       end
 
       def http_method
@@ -48,7 +48,7 @@ module Rubank
       end
 
       def headers
-        { "Authorization" => "Bearer #{access_token}")
+        { "Authorization" => "Bearer #{access_token}" }
       end
     end
   end

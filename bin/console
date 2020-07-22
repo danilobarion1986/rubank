@@ -3,12 +3,17 @@
 
 require "bundler/setup"
 require "pry"
+
 require "rubank"
 require "rubank/client"
+require "rubank/qr_code"
+require "rubank/qr_code_renderer"
+
 require "rubank/requesters/base"
 require "rubank/requesters/urls_discoverer"
 require "rubank/requesters/app_urls_discoverer"
 require "rubank/requesters/credentials_authenticator"
+require "rubank/requesters/qr_code_authenticator"
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.

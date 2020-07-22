@@ -22,8 +22,7 @@ module Rubank
       response = Requesters::CredentialsAuthenticator.call(urls[:login], username, password)
       raise AuthenticationError, "Credentials are missing!" if response[:error]
 
-      # Create and validate UUID first, then call the QrCodeAuthenticator as a callback
-      # qrcode_response = Requesters::QrCodeAuthenticator.call(app_urls[:lift], response[:access_token], uuid)
+      # qrcode_response = Requesters::QrCodeAuthenticator.call(app_urls[:lift], response[:access_token])
     end
   end
 end

@@ -6,12 +6,17 @@ SimpleCov.start
 require "bundler/setup"
 require "webmock/rspec"
 require "pry"
+require "uuid"
 require "rubank"
 require "rubank/client"
+require "rubank/qr_code"
+require "rubank/qr_code_renderer"
+
 require "rubank/requesters/base"
 require "rubank/requesters/urls_discoverer"
 require "rubank/requesters/app_urls_discoverer"
 require "rubank/requesters/credentials_authenticator"
+require "rubank/requesters/qr_code_authenticator"
 
 WebMock.disable_net_connect!(allow_localhost: true, allow: "www.example.com")
 
