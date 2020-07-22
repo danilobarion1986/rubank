@@ -7,6 +7,7 @@ require "rubank"
 require "rubank/client"
 require "rubank/requesters/base"
 require "rubank/requesters/urls_discoverer"
+require "rubank/requesters/app_urls_discoverer"
 require "rubank/requesters/credentials_authenticator"
 
 # You can add fixtures and/or initialization code here to make experimenting
