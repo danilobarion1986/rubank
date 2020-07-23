@@ -15,10 +15,9 @@ RSpec.describe Rubank::QrCodeRenderer do
     subject { described_class.new }
 
     it "correctly renders the QR Code" do
-      seconds_to_scan = 1
-      Rubank.config.authentication.qrcode.seconds_to_scan = seconds_to_scan
+      Rubank.config.authentication.qrcode.seconds_to_scan = 1
 
-      expect(subject.call).to eql seconds_to_scan
+      expect(subject.call).to be_an_instance_of(Rubank::QrCodeRenderer)
     end
   end
 end

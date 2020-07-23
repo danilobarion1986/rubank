@@ -12,14 +12,16 @@ module Rubank
     DEFAULT_SECONDS_TO_SCAN = 15
     DEFAULT_RENDER_FORMAT = :html
 
-    attr_reader :qr_code_html
+    attr_reader :qr_code
 
     # Render a QR Code as a temporary file.
     def call
-      @qr_code_to_render = QrCode.new.send(render_format)
+      @qr_code = QrCode.new
+      @qr_code_to_render = qr_code.send(render_format)
       open_tempfile(create_tempfile)
 
       sleep seconds_to_scan
+      self
     end
 
     # @see #call
