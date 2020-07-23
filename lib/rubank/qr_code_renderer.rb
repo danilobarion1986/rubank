@@ -16,7 +16,7 @@ module Rubank
 
     # Render a QR Code as a temporary file.
     def call
-      @qr_code = QrCode.new
+      @qr_code = qrcode_class.new
       @qr_code_to_render = qr_code.send(render_format)
       open_tempfile(create_tempfile)
 
@@ -25,8 +25,8 @@ module Rubank
     end
 
     # @see #call
-    def self.call(qr_code_html)
-      new.call(qr_code_html)
+    def self.call
+      new.call
     end
 
     private
@@ -45,6 +45,10 @@ module Rubank
     def template
       current_dir = File.expand_path(__dir__)
       File.open("#{current_dir}/qr_code_template_#{render_format}.erb", 'rb', &:read)
+    end
+
+    def qrcode_class
+      Rubank.config.authentication.qrcode[:qrcode_class] || QrCode
     end
 
     def seconds_to_scan
