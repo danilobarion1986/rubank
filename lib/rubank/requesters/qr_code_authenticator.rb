@@ -17,7 +17,7 @@ module Rubank
         @lift_url = lift_url
         @access_token = access_token
 
-        QrCodeRenderer.call(QrCode.new.qrcode.as_html)
+        QrCodeRenderer.call
 
         super()
         Oj.load(response_body, symbol_keys: true)

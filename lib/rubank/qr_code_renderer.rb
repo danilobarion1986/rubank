@@ -13,9 +13,9 @@ module Rubank
 
     attr_reader :qr_code_html
 
-    # Render a QR Code as a HTML temporary file.
-    def call(qr_code_html, **opts)
-      @qr_code_html = qr_code_html
+    # Render a QR Code as a temporary file.
+    def call(**opts)
+      @qr_code_html = QrCode.new.as_html
       open_tempfile(create_tempfile)
 
       sleep opts.fetch(:seconds_to_scan, SECONDS_TO_SCAN) and return

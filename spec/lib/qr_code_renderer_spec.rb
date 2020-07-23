@@ -14,12 +14,8 @@ RSpec.describe Rubank::QrCodeRenderer do
   describe "#call" do
     subject { described_class.new }
 
-    let(:html) do
-      "<p>some html code</p>"
-    end
-
     it "correctly renders the QR Code" do
-      expect(subject.call(html, seconds_to_scan: 0.1)).to be_nil
+      expect(subject.call(seconds_to_scan: 0.1)).to be_nil
     end
   end
 end

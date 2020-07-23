@@ -13,5 +13,9 @@ module Rubank
       @uuid = SecureRandom.uuid
       @qrcode = RQRCode::QRCode.new(@uuid)
     end
+
+    def as_html
+      qrcode.as_html
+    end
   end
 end
