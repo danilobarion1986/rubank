@@ -10,12 +10,13 @@ module Rubank
   class QrCodeRenderer
     FILENAME = 'qr_code.html'
     DEFAULT_SECONDS_TO_SCAN = 15
+    DEFAULT_RENDER_FORMAT = :html
 
     attr_reader :qr_code_html
 
     # Render a QR Code as a temporary file.
     def call
-      @qr_code_html = QrCode.new.as_html
+      @qr_code_to_render = QrCode.new.send(render_format)
       open_tempfile(create_tempfile)
 
       sleep seconds_to_scan
@@ -41,11 +42,15 @@ module Rubank
 
     def template
       current_dir = File.expand_path(__dir__)
-      File.open("#{current_dir}/qr_code_template.erb", 'rb', &:read)
+      File.open("#{current_dir}/qr_code_template_#{render_format}.erb", 'rb', &:read)
     end
 
     def seconds_to_scan
       Rubank.config.authentication.qrcode[:seconds_to_scan] || QrCodeRenderer::DEFAULT_SECONDS_TO_SCAN
+    end
+
+    def render_format
+      Rubank.config.authentication.qrcode[:render_format] || QrCodeRenderer::DEFAULT_RENDER_FORMAT
     end
   end
 end

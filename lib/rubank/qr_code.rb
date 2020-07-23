@@ -14,7 +14,7 @@ module Rubank
       @qrcode = RQRCode::QRCode.new(@uuid)
     end
 
-    def as_html
+    def html
       qrcode.as_html
     end
   end
