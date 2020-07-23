@@ -7,7 +7,7 @@ RSpec.describe Rubank::QrCodeRenderer do
     it "sends #call to an instance of #{described_class}" do
       expect_any_instance_of(described_class).to receive(:call)
 
-      subject.call(anything)
+      subject.call
     end
   end
 

@@ -11,66 +11,53 @@ RSpec.describe Rubank::Requesters::QrCodeAuthenticator do
     end
   end
 
-  # describe "#call" do
-  #   subject { described_class.new }
+  describe "#call" do
+    subject { described_class.new }
 
-  #   let(:random_url) do
-  #     "https://prod-s0-webapp-proxy.nubank.com.br/api/proxy/random_url"
-  #   end
-  #   let(:expected_request_body) do
-  #     { 'grant_type' => 'password',
-  #       'login' => 'username',
-  #       'password' => "password",
-  #       'client_id' => 'other.conta',
-  #       'client_secret' => "yQPeLzoHuJzlMMSAjC-LgNUJdUecx8XO" }.to_json
-  #   end
-  #   let(:expected_response) do
-  #     { access_token: "eyJhbGciOiJSUzI1NiIsI",
-  #       token_type: "bearer",
-  #       _links: {
-  #         revoke_token: { href: random_url },
-  #         revoke_all: { href: random_url },
-  #         account_emergency: { href: random_url },
-  #         bill_emergency: { href: random_url }
-  #       },
-  #       refresh_token: "string token",
-  #       refresh_before: "2020-07-21T22:45:57Z" }
-  #   end
+    let(:random_url) do
+      "https://prod-s0-webapp-proxy.nubank.com.br/api/proxy/random_url"
+    end
+    let(:mock_uuid) do
+      "d5ae238b-f2c2-4d52-b11f-01cea3368972"
+    end
+    let(:expected_request_body) do
+      { 'qr_code_id' => mock_uuid,
+        'type' => 'login-webapp' }.to_json
+    end
+    let(:expected_response) do
+      { ok: 'ok' }
+    end
 
-  #   before do
-  #     stub_request(:post, random_url)
-  #       .to_return(status: 200, body: expected_response.to_json)
-  #   end
+    before do
+      stub_request(:post, random_url)
+        .to_return(status: 200, body: expected_response.to_json)
+    end
 
-  #   it "has the correct body parameters" do
-  #     subject.call(random_url, 'username', 'password')
+    it "has the correct response format" do
+      response = subject.call(random_url, 'random_access_token')
 
-  #     expect(subject.request.request.options[:body]).to eql(expected_request_body)
-  #   end
+      expect(response).to eql(expected_response)
+    end
 
-  #   context "when a correct username/password pair is passed" do
-  #     it "works" do
-  #       response = subject.call(random_url, 'correct_username', 'correct_password')
+    before do
+      eval <<~CLASS
+        class MockQrCode
+          def uuid
+            "#{mock_uuid}"
+          end
 
-  #       expect(response).to eql(expected_response)
-  #     end
-  #   end
+          def html
+            "<p>mock</p>"
+          end
+        end
+      CLASS
+    end
 
-  #   context "when a incorrect username/password pair is passed" do
-  #     let(:expected_response) do
-  #       { error: "Unauthorized" }
-  #     end
+    it "has the correct body parameters on the request" do
+      Rubank.config.authentication.qrcode.qrcode_class = MockQrCode
+      subject.call(random_url, 'random_access_token')
 
-  #     before do
-  #       stub_request(:post, random_url)
-  #         .to_return(status: 401, body: expected_response.to_json)
-  #     end
-
-  #     it "works" do
-  #       response = subject.call(random_url, 'correct_username', 'correct_password')
-
-  #       expect(response).to eql(expected_response)
-  #     end
-  #   end
-  # end
+      expect(subject.request.request.options[:body]).to eql(expected_request_body)
+    end
+  end
 end
