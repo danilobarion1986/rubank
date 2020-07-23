@@ -11,6 +11,10 @@ RSpec.describe Rubank::QrCode do
     expect(subject).to respond_to(:qrcode)
   end
 
+  it "responds to #html" do
+    expect(subject).to respond_to(:html)
+  end
+
   describe "#uuid" do
     it "returns a valid UUID" do
       expect(UUID.validate(subject.uuid)).to be true
@@ -20,6 +24,12 @@ RSpec.describe Rubank::QrCode do
   describe "#qrcode" do
     it "returns an instance of RQRCode::QRCode" do
       expect(subject.qrcode).to be_an_instance_of(RQRCode::QRCode)
+    end
+  end
+
+  describe "#html" do
+    it "returns a QR Code rendered as HTML" do
+      expect(subject.html).to match(/<table>.*<\/table>/)
     end
   end
 end
